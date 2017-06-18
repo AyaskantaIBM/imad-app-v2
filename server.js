@@ -5,17 +5,35 @@ var path = require('path');
 var app = express();
 app.use(morgan('combined'));
 
-var articleOne={
-  title: 'Article-one-Ayas',
-  heading:'Article one',
-  date:'Jun 18 2017',
-  content:`<p>
-             this is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html file
-         </p>
-          <p>
-             this is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html file
-         </p>`
-  
+var articles={
+
+          'article-One':{
+             title: 'Article-one-Ayas',
+             heading:'Article one',
+             date:'Jun 18 2017',
+             content:`<p>
+                     this is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html file
+                 </p>
+                  <p>
+                     this is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html file
+                 </p>`
+          
+                  },
+          'article-Two':{
+              title: 'Article-two-Ayas',
+              heading:'Article two',
+              date:'Jun 15 2017',
+              content:`<p>
+                     this is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html filethis is my first html file
+                 
+                 </p>`},
+          'article-Three':{
+              title: 'Article-three-Ayas',
+              heading:'Article three',
+              date:'Jun 14 2017',
+              content:`<p>
+                     this is my third html filethis 
+                 </p>`},
 };
 
 function createTemplate(data){
@@ -67,15 +85,13 @@ function createTemplate(data){
 
 
 
-app.get('/article-one', function(req, res){
-    res.send(createTemplate(articleOne));
+app.get('/:articleName', function(req, res){
+    //articleName==article-one
+    //articles[articleName]=={} content object for article one
+    var articleName = req.params.articleName;
+    res.send(createTemplate(articles[articleName]));
 });
-app.get('/article-two', function(req, res){
-    res.sendFile(path.join(__dirname, 'ui','article-two.html'));
-});
-app.get('/article-three', function(req, res){
-    res.sendFile(path.join(__dirname, 'ui','article-three.html'));
-});
+
 
 app.get('/', function (req, res) {
   res.sendFile(path.join(__dirname, 'ui', 'index.html'));
